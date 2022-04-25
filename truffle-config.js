@@ -8,5 +8,12 @@ module.exports = {
     develop: {
       port: 7545
     }
-  }
+  },
+  compilers: {
+    solc: {
+      version: "^0.8.10", // A version or constraint - Ex. "^0.5.0"
+                         // Can be set to "native" to use a native solc or
+                         // "pragma" which attempts to autodetect compiler versions
+      }
+    }
 };
