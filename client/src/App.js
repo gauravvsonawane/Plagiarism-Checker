@@ -56,7 +56,15 @@ const App = () => {
       "nav-bar":true,
       "greeting":true,
       "form-student":true
-    })
+    });
+  }
+
+  const StudentPageCB = () => {
+    resetComponents();
+    setComponents({
+      "nav-bar":true,
+      "student-page":true
+    });
   }
 
   // Callback END
@@ -99,9 +107,10 @@ const App = () => {
 
       <div class="flex flex-col items-center py-6 lg:h-[32rem] lg:flex-row">
         {components["greeting"] && <Greeting /> }
-        {components["form-student"] && <FormStudent Web3States={Web3States}/> }
+        {components["form-student"] && <FormStudent Web3States={Web3States}
+                                                    callback_student_page={StudentPageCB}/> }
         {components["form-evaluator"] && <FormEvaluator Web3States={Web3States}/> }
-        {components["student-page"] && <StudentPage /> }
+        {components["student-page"] && <StudentPage Web3States={Web3States}/> }
         
       </div>
     </div>

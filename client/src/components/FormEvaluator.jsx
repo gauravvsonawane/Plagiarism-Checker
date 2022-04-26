@@ -52,7 +52,7 @@ function FormEvaluator(props) {
             Registration
           </h2>
 
-          <form action="#">
+          <form >
             <div class="mt-4">
               <input
                 class="block w-full px-4 py-2 text-gray-300 placeholder-gray-400 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:ring-blue-300 focus:outline-none focus:ring"

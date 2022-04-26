@@ -18,6 +18,37 @@ contract BlockCheck{
     Student[] public Students;
     mapping (string=>Evaluator) public mapWalletAddress2Evaluator;
     mapping (string=>Student) public mapWalletAddress2Student;
+    mapping (string=>string) public mapMIS2Submission;
+
+
+    // Assignment functions START
+    function isAssignmentSubmitted(string memory _mis_number) public view returns(bool) {
+        if(areStringsEqual(mapMIS2Submission[_mis_number], "")) {
+            return false;
+        }
+        else {
+            return true;
+        }
+        
+    }
+    uint submissionState = 0;
+    function setSubmission(string memory _wallet_address, string memory _submission) public {
+        submissionState = 0;
+        string memory _mis_number = getMIS(_wallet_address);
+        if(!isAssignmentSubmitted(_mis_number)) {
+            mapMIS2Submission[_mis_number] = _submission;
+            submissionState = 1;
+        }
+        else {
+            submissionState = 2;
+        }
+    }
+    function getSubmissionState() public view returns(uint) {
+        return submissionState;
+    }
+
+
+    // Assignment functions END
 
     // Evaluator functions START
     uint public state_add_evaluator = 0; // 0:not added
@@ -86,6 +117,10 @@ contract BlockCheck{
     function authenticateStudent(string memory _wallet_address) public view returns(bool) {
         if(!areStringsEqual(mapWalletAddress2Student[_wallet_address].mis_number,"")) return true;
         else return false;
+    }
+
+    function getMIS(string memory _wallet_address) public view returns(string memory) {
+        return mapWalletAddress2Student[_wallet_address].mis_number;
     }
 
     // Student functions END
