@@ -23,7 +23,19 @@ function FormEvaluator(props) {
     setEmail(_email);
   }
 
-  const signup = async () => {
+  const authenticateEvaluator = async (e) => {
+    e.preventDefault();
+    const authenticated = await props.Web3States.contractInst.methods.authenticateEvaluator(props.Web3States.accounts[0]).call();
+    if(authenticated) {
+      props.callback_evaluator_page();
+    }
+    else {
+      alert("User not registered!");
+    }
+  }
+
+  const signup = async (e) => {
+    // e.preventDefault();
     try {
       await props.Web3States.contractInst.methods.addEvaluator(eid, email, props.Web3States.accounts[0])
         .send({ from: props.Web3States.accounts[0] });
@@ -73,7 +85,7 @@ function FormEvaluator(props) {
             <div class="flex items-center justify-between mt-4">
               <button
                 class="text-sm text-gray-600 dark:text-gray-200 hover:underline"
-                onClick={on}
+                onClick={authenticateEvaluator}
               >
                 Already registered?
               </button>

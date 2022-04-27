@@ -10,6 +10,7 @@ import Greeting from "./components/Greeting";
 import FormStudent from "./components/FormStudent";
 import FormEvaluator from "./components/FormEvaluator";
 import StudentPage from "./components/StudentPage";
+import EvaluatorPage from "./components/EvaluatorPage";
 
 // css
 import "./App.css";
@@ -28,7 +29,8 @@ const App = () => {
     "greeting":true,
     "form-student":false,
     "form-evaluator":true,
-    "student-page":false
+    "student-page":false,
+    "evaluator-page":false
   });
 
   const resetComponents = () => {
@@ -37,7 +39,8 @@ const App = () => {
     "greeting":false,
     "form-student":false,
     "form-evaluator":false,
-    "student-page":false
+    "student-page":false,
+    "evaluator-page":false
     });
   }
 
@@ -64,6 +67,13 @@ const App = () => {
     setComponents({
       "nav-bar":true,
       "student-page":true
+    });
+  }
+  const EvaluatorPageCB = () => {
+    resetComponents();
+    setComponents({
+      "nav-bar":true,
+      "evaluator-page":true
     });
   }
 
@@ -109,8 +119,10 @@ const App = () => {
         {components["greeting"] && <Greeting /> }
         {components["form-student"] && <FormStudent Web3States={Web3States}
                                                     callback_student_page={StudentPageCB}/> }
-        {components["form-evaluator"] && <FormEvaluator Web3States={Web3States}/> }
+        {components["form-evaluator"] && <FormEvaluator Web3States={Web3States}
+                                                        callback_evaluator_page={EvaluatorPageCB}/> }
         {components["student-page"] && <StudentPage Web3States={Web3States}/> }
+        {components["evaluator-page"] && <EvaluatorPage Web3States={Web3States}/> }
         
       </div>
     </div>
