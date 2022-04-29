@@ -34,7 +34,8 @@ function FormStudent(props) {
     setEmail(_email);
   }
 
-  const signup = async () => {
+  const signup = async (e) => {
+    e.preventDefault()
     try {
       await props.Web3States.contractInst.methods.addStudent(mis, email, props.Web3States.accounts[0])
         .send({ from: props.Web3States.accounts[0] });

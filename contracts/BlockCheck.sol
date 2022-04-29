@@ -31,12 +31,19 @@ contract BlockCheck{
         }
         
     }
+    string[] public MIS_arr;
+    string[] public submission_arr;
+    function getAllSubmissions() public view returns(string[] memory, string[] memory) {
+        return (MIS_arr, submission_arr);
+    }
     uint submissionState = 0;
     function setSubmission(string memory _wallet_address, string memory _submission) public {
         submissionState = 0;
         string memory _mis_number = getMIS(_wallet_address);
         if(!isAssignmentSubmitted(_mis_number)) {
             mapMIS2Submission[_mis_number] = _submission;
+            MIS_arr.push(_mis_number);
+            submission_arr.push(_submission);
             submissionState = 1;
         }
         else {
