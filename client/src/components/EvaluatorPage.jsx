@@ -12,10 +12,11 @@ const EvaluatorPage = (props) => {
 
     const inputMIS = (e) => {
         setMis(e.target.value);
-        console.log(mis);
     }
 
     const LCS = (s1, s2) => {
+        console.log("s1: >"+s1);
+        console.log("s2: >"+s2);
         let m = s1.length;
         let n = s2.length;
 
@@ -52,8 +53,7 @@ const EvaluatorPage = (props) => {
                 else j--;
             }
         }
-        console.log(commonString);
-        console.log(commonString.length);
+        console.log("commonString "+commonString);
         
         let percent  = (commonString.length/s1.length)*100;
         
@@ -62,13 +62,31 @@ const EvaluatorPage = (props) => {
 
     }
 
+    const auxFetchScore = (arrays, mis) => {
+
+        let maxScore = -1;
+        let currentSubmission = "";
+        for(let i=0;i<arrays[0].length;i++) {
+            if(arrays[0][i]==mis) {
+                currentSubmission = arrays[1][i].toString();
+                break;
+            }
+        }
+        for(let i=0;i<arrays[1].length;i++) {
+            if(arrays[0][i]!=mis)
+                maxScore = Math.max(maxScore,LCS(currentSubmission, arrays[1][i]));
+        }
+
+        return maxScore;
+
+    }
+
     const fetchScore = async(e) => {
         e.preventDefault();
-        console.log(mis);
         const arrays = await props.Web3States.contractInst.methods.getAllSubmissions().call();
         console.log(arrays);
 
-        console.log(LCS("// Name : Gaurav Valmik Sonawane // MIS No. : 111915036 /* #include <stdio.h> #include <stdlib.h> #include <GL/glut.h> #include <math.h> #define PI 3.1415927 GLfloat T=0; void spin() { T=T+0.05; if(T>360){ T=0; } glutPostRedisplay(); } void draw_cylinder(GLfloat radius,GLfloat height,GLubyte R,GLubyte G,GLubyte B) { GLfloat x = 0.0; GLfloat y = 0.0; GLfloat angle = 0.0; GLfloat angle_stepsize = 0.1; glColor3ub(R-40,0,B-100); glBegin(GL_QUAD_STRIP); angle = 0.0; while( angle < 2*PI ) { x = radius * cos(angle); y = radius * sin(angle); glVertex3f(x, y , height); glVertex3f(x, y , 0.0); angle = angle + angle_stepsize; } glVertex3f(radius, 0.0, height); glVertex3f(radius, 0.0, 0.0); glEnd(); glColor3ub(R-200,G,B); glBegin(GL_POLYGON); angle = 0.0; while( angle < 2*PI ) { x = radius * cos(angle); y = radius * sin(angle); glVertex3f(x, y , height); angle = angle + angle_stepsize; } glVertex3f(radius, 0.0, height); glEnd(); } void display(void) { glClear(GL_COLOR_BUFFER_BIT); glLoadIdentity(); glTranslatef(0.0,-0.4,-3.0); glRotatef(T, 1.0, 1.0, 0.0); draw_cylinder(0.3, 1.0, 255, 160, 100); glFlush(); } void reshape(int width, int height) { if (width == 0 || height == 0) return; glMatrixMode(GL_PROJECTION); glLoadIdentity(); gluPerspective(40.0, (GLdouble)width/(GLdouble)height, 0.5, 20.0); glMatrixMode(GL_MODELVIEW); glViewport(0, 0, width, height); } int main(int argc, char **argv) { glutInit(&argc, argv); glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); glutInitWindowSize(640,480); glutCreateWindow(Create Cylinder); glClearColor(0.0,0.0,0.0,0.0); glutDisplayFunc(display); glutIdleFunc(spin); glutReshapeFunc(reshape); glutMainLoop(); return 0; } */", "//Yatharth Kale //111915140 #include <stdio.h> #include <stdlib.h> #include <GL/glut.h> #include <math.h> #define PI 3.1415927 GLfloat T=0; void spin() { T=T+0.1; if(T>360){ T=0; } glutPostRedisplay(); } void draw_cylinder(GLfloat radius,GLfloat height,GLubyte R,GLubyte G,GLubyte B) { GLfloat x = 0.0; GLfloat y = 0.0; GLfloat angle = 0.0; GLfloat angle_stepsize = 0.1; glColor3ub(R-0,G-100,B-100); glBegin(GL_QUAD_STRIP); angle = 0.0; while( angle < 2*PI ) { x = radius * cos(angle); y = radius * sin(angle); glVertex3f(x, y , height); glVertex3f(x, y , 0.0); angle = angle + angle_stepsize; } glVertex3f(radius, 0.0, height); glVertex3f(radius, 0.0, 0.0); glEnd(); glColor3ub(R-200,G,B-100); glBegin(GL_POLYGON); angle = 0.0; while( angle < 2*PI ) { x = radius * cos(angle); y = radius * sin(angle); glVertex3f(x, y , height); angle = angle + angle_stepsize; } glVertex3f(radius, 0.0, height); glEnd(); } void display(void) { glClear(GL_COLOR_BUFFER_BIT); glLoadIdentity(); glTranslatef(0.0,-0.4,-3.0); glRotatef(T, 1.0, 4.0, 0.0); draw_cylinder(0.3, 1.0, 255, 160, 100); glFlush(); } void reshape(int width, int height) { if (width == 0 || height == 0) return; glMatrixMode(GL_PROJECTION); glLoadIdentity(); gluPerspective(40.0, (GLdouble)width/(GLdouble)height, 0.5, 20.0); glMatrixMode(GL_MODELVIEW); glViewport(0, 0, width, height); } int main(int argc, char **argv) { glutInit(&argc, argv); glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); glutInitWindowSize(640,480); glutCreateWindow(Create Cylinder); glClearColor(0.0,0.0,0.0,0.0); glutDisplayFunc(display); glutIdleFunc(spin); glutReshapeFunc(reshape); glutMainLoop(); return 0; }"));
+        console.log("plagiarism "+auxFetchScore(arrays, mis));
     }
 
     return (

@@ -4,9 +4,23 @@ const StudentPage = (props) => {
 
   let assignment = "";
   const setAssignment = (e) => {
-    assignment = e.target.value;
+    console.log("hello");
+    
+    assignment = preProcess(e.target.value);
+    console.log("hello");
   }
-
+  const shedString = (string, separator) => {
+    //we split the string and make it free of separator
+    const separatedArray = string.split(separator);
+    //we join the separatedArray with empty string
+    const separatedString = separatedArray.join("");
+    return separatedString;
+ }
+  const preProcess = (assignment) => {
+    assignment = assignment.replace(/(\r\n|\n|\r)/gm, ""); // remove line breaks
+    assignment = assignment.replace(/['"]+/g, ''); // remove "
+    return assignment;
+  }
   const onSubmit = async(e) => {
     e.preventDefault();
     try {
